@@ -1,4 +1,4 @@
-# youtubesidebar
+# AuthTokenVueJs
 
 ## Project setup
 ```
