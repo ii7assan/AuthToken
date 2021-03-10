@@ -51,15 +51,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ username: "getCurrentUser" })
-    
+    ...mapGetters({ username: "getCurrentUser" }),
+    ...mapGetters({isLoggedIn: 'isLoggedIn'})
   },
   methods: {
-    logout() {
-      this.$router.push("login");
-      this.$store.commit('resetState');
-      localStorage.removeItem("is_Auth");
-    },
+
+    logout: () => {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('login')
+        })
+      }
+    // logout() {
+    //   this.$router.push("login");
+    //   this.$store.commit('resetState');
+    //   localStorage.removeItem("is_Auth");
+    // },
   },
 };
 </script>

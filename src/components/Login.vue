@@ -15,7 +15,7 @@
   </form>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
@@ -30,33 +30,21 @@ export default {
       type: String,
     },
   },
+   //user&pass: 09197479105
   methods: {
-    login: async function () {
-      const api = "https://api-crm.basalam.dev/api/v1/login";
-      const payload = {
-        email: this.username,
-        password: this.password,
-        token_name: "web",
-      };
-      this.error = null;
-      try {
-        //user&pass: 09197479105
-        const res = await axios
-          .post(api, payload)
-          .then((Response) => Response.data);
-
-        if (res.outcome.data) {
-          window.localStorage.setItem("is_Auth", res.outcome.data.token); // cookie better
-          this.$store.commit("setUserName", res.outcome.data.user.name);
-          this.$router.push("/");
-          this.success = true;
+        login(){
+           const payload = {
+              email: this.username,
+              password: this.password,
+              token_name: 'web'
+           }
+            this.$store.dispatch('login', payload)
+            .then(() => this.$router.push('/'))
+            .catch(err => console.log(err))
         }
-      } catch (error) {
-        this.error = error.message;
-      }
     },
-  },
-};
+  }
+
 </script>
 <style scoped>
 input[type="text"],
@@ -79,3 +67,27 @@ button:hover {
   opacity: 0.8;
 }
 </style>
+
+// login: async function () {
+    //   const api = "https://api-crm.basalam.dev/api/v1/login";
+    //   const payload = {
+    //     email: this.username,
+    //     password: this.password,
+    //     token_name: "web",
+    //   };
+    //   this.error = null;
+    //   try {
+       
+    //     const res = await axios
+    //       .post(api, payload)
+    //       .then((Response) => Response.data);
+
+    //     if (res.outcome.data) {
+    //       window.localStorage.setItem("is_Auth", res.outcome.data.token); // cookie better
+    //       this.$store.commit("setUserName", res.outcome.data.user.name);
+    //       this.$router.push("/");
+    //       this.success = true;
+    //     }
+    //   } catch (error) {
+    //     this.error = error.message;
+    //   }
